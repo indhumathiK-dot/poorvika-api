@@ -1,0 +1,441 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Poorvika Employee Management Swagger Documentation",
+        "version": "1.0.0",
+        "title": "Employee Management",
+        "contact": {
+            "email": "admin@poorvika.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "securityDefinitions": {
+        "jwt": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "auth"
+        }
+      },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "paths": {
+        "/employee/list": {
+            "get": {
+                "security": [
+                    {
+                      "jwt": []
+                    }
+                  ],
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Get all the employees with respect to logged used",
+                "description": "Get all the employees",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "paginationStart",
+                        "description": "Pagination start",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "properties": {}
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "paginationLimit",
+                        "description": "Pagination Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "properties": {}
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "search",
+                        "description": "Searching variable",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "properties": {}
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "type": "array",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/employeeListResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/add": {
+            "post": {
+                "security": [
+                    {
+                      "jwt": []
+                    }
+                  ],
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Create employee with required details",
+                "description": "Save the employee",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Add Employee",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/employeeAdd"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/employeeListResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                      "jwt": []
+                    }
+                  ],
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Update the value of employee in any field",
+                "description": "Update the employee",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Add Employee",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/employeeUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/employeeListResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Employee"
+                ],
+                "security": [
+                    {
+                      "jwt": []
+                    }
+                  ],
+                "summary": "Delete the employee information from application",
+                "description": "Delete the employee",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "employee id that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/employeeListResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/detail/{id}": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "security": [
+                    {
+                      "jwt": []
+                    }
+                  ],
+                "summary": "Fetch details of particular employee",
+                "description": "Employee details",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "employee id that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/employeeListResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Login to application",
+                "description": "Login",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Login as admin/employee",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/employeeLogin"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/loginResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "employeeListResponse": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "designation": {
+                    "type": "string"
+                },
+                "dateOfJoining": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "loginResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "$ref": "#/definitions/employeeListResponse"
+                }
+            }
+        },
+        "employeeAdd": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "designation": {
+                    "type": "string"
+                },
+                "dateOfJoining": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "employeeUpdate": {
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "type": "string"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "designation": {
+                    "type": "string"
+                },
+                "dateOfJoining": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "employeeLogin": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "InvalidResponse": {
+            "type": "object",
+            "properties": {
+                "statusCode": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

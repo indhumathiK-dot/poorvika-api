@@ -1,0 +1,10 @@
+[
+    {
+        "email": "admin@poorvika.com",
+        "password": "db314891a1cd75b356531ff9b502cde0fe40c20564e20013fbcaba80ea96dc15601791107d48737b9ca603d4c6ab0fe13489efc12a0a5b6b258d8616ff04e6ce",
+        "firstName": "Admin",
+        "lastName": "Poorvika",
+        "userType": 1,
+        "createdBy": 1
+    }
+]
